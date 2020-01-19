@@ -1,19 +1,41 @@
 import numpy as np
 
-nums = np.array(range(2,2000000))
+def find_primes(top):
+    nums = np.array(range(2, top + 1))
+    primes = []
 
-def is_prime(num):
-    for i in range(2, num):
-        if (num % i == 0):
-            return False
-    return True
+    while nums.size != 0:
+        primes.append(nums[0])
+        nums = nums[nums % primes[-1] != 0]
 
-# primes =(x for x in nums if is_prime(x))
+    return primes
 
-total = 0
+# def find_primes(top):
+#     nums = np.array(range(2, top + 1))
+#     total = 0
 
-for num in nums:
-    if is_prime(num):
-        total += num
+#     while nums.size != 0:
+#         total += nums[0]
+#         nums = nums[nums % nums[0] != 0]
 
+#     return total
+
+# primes = find_primes(2000000)
+# print(primes)
+
+def sum_of_primes(top):
+    primes = [2]
+    for i in range(3, top + 1, 2):
+        for prime in primes:
+            if i % prime == 0:
+                break
+            if i < prime ** 2:
+                primes.append(i)
+                break
+        else:
+            primes.append(i)
+    return sum(primes)
+
+total = sum_of_primes(2000000)
 print(total)
+
